@@ -9,11 +9,18 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @post.categories.build
+    @post.comments.build
   end
 
   def create
-    post = Post.create(post_params)
-    redirect_to post
+    post = Post.new(post_params)
+    if post.save 
+      redirect_to post
+    else 
+      render :new
+    end
+    
   end
 
   private
